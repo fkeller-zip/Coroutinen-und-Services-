@@ -39,17 +39,28 @@ class WeatherViewModel : ViewModel() {
             }
         }
     }
-
+    ////////////////////////////////////
+    // Todo
+    // Corrected: Fetch forecast data method
     fun fetchForecastData(city: String, apiKey: String) {
+        viewModelScope.launch {
+            try {
+                // Fetch forecast data from the API
+                val forecastResponse = WeatherApiService.fetchForecast(city, apiKey)
 
-        ////////////////////////////////////
-
-        //Todo
-
-        ////////////////////////////////////
-
+                if (forecastResponse != null) {
+                    _forecast.value = forecastResponse.list
+                    _errorMessage.value = null // Reset error message if successful
+                } else {
+                    _errorMessage.value = "Failed to fetch forecast data. Please check the city name or API key."
+                }
+            } catch (e: Exception) {
+                // Error handling
+                _errorMessage.value = "An error occurred while fetching forecast data: ${e.localizedMessage}"
+            }
+        }
     }
-
+    ////////////////////////////////////
     private fun fetchWeatherIcon(iconId: String) {
         if (iconId.isNotEmpty()) {
             _iconUrl.value = "https://openweathermap.org/img/wn/$iconId@2x.png"

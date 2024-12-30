@@ -61,6 +61,22 @@ object WeatherApiService {
     ////////////////////////////////////
 
     // TODO: Methode fetchForecast implementieren, um die Wettervorhersage abzurufen.
-
+    suspend fun fetchForecast(city: String, apiKey: String): ForecastData? {
+        return try {
+            // Benutze den IO-Dispatcher, da es sich um eine Netzwerkoperation handelt
+            withContext(Dispatchers.IO) {
+                val response = api.fetchForecast(city, apiKey)
+                if (response.isSuccessful) {
+                    response.body()
+                } else {
+                    Log.e("WeatherApiService", "Failed to fetch forecast data: ${response.code()}")
+                    null
+                }
+            }
+        } catch (e: Exception) {
+            Log.e("WeatherApiService", "Error fetching forecast data: ${e.message}")
+            null
+        }
+    }
     ////////////////////////////////////
 }

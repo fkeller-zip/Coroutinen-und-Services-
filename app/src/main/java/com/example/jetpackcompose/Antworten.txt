@@ -1,0 +1,9 @@
+A) Coroutinen erleichtern die Handhabung asynchroner Aufgaben, indem sie den Code einfacher und weniger fehleranfällig machen. Sie verbessern die Benutzererfahrung, da sie den Haupt-Thread nicht blockieren und die App reaktionsfähig bleibt.
+
+B) Der Dispatchers.IO-Dispatcher wurde gewählt, da er für I/O-intensive Aufgaben wie Netzwerkaufrufe optimiert ist. Er entlastet den Haupt-Thread und sorgt dafür, dass die App weiterhin schnell bleibt.
+
+C)
+1. Hintergrund-Downloads/Uploads: Ein Service ermöglicht das Fortsetzen von Downloads/Uploads im Hintergrund.
+2. Standortverfolgung: Ein Service ermöglicht kontinuierliches Überwachen des Standorts, auch wenn die App im Hintergrund ist.
+
+D) Die Kombination von Services und Coroutinen ermöglicht asynchrone Aufgaben im Hintergrund, ohne die UI zu blockieren. In der Wetter-App könnte der Service im Hintergrund Wetterdaten abfragen, während Coroutinen diese Anfragen effizient ausführen, ohne den Haupt-Thread zu blockieren.

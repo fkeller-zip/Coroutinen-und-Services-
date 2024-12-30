@@ -32,21 +32,32 @@ class PopupService : Service() {
         }
     }
 
-    override fun onCreate() {
-        super.onCreate()
-        createNotificationChannel()
+
 
 
         ////////////////////////////////////
 
         //TODO starte den Service hier
+        override fun onCreate() {
+            super.onCreate()
+            createNotificationChannel()
+
+            // Starten des Foreground-Service mit einer Benachrichtigung
+            val notification = getNotification("Service Started")
+            startForeground(1, notification)
+
+            // Registrierung des Receivers, um Timer-Optionen zu erhalten
+            registerUpdateReceiver()
+
+            // Initialisierung des Timers aus den Einstellungen
+            initializeTimerFromSettings()
+        }
 
         ////////////////////////////////////
 
 
-        registerUpdateReceiver()
-        initializeTimerFromSettings()
-    }
+
+
 
     override fun onDestroy() {
         super.onDestroy()
